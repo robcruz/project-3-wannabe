@@ -3,11 +3,14 @@ import Upload from "./Upload";
 import "./Upload.css";
 
 
+
+
 export default props => (
 
     <div className="Username">
         <h1 className="namestyle">Upload Your Item(s) Here!</h1>
         <div className="Dashboard">
+
 
             <div>
                 <h1>Upload</h1>
@@ -19,6 +22,8 @@ export default props => (
                         </form>
 
                         <Upload />
+
+
 
                     </div>
                 </div>

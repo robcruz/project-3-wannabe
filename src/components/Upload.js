@@ -91,7 +91,7 @@ class Upload extends Component {
             src="baseline-check_circle_outline-24px.svg"
             style={{
               opacity:
-                uploadProgress && uploadProgress.state === "done" ? 0.5 : 0
+                uploadProgress && uploadProgress.state === "done" ? 3.0 : 1
             }}
           />
         </div>
