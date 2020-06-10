@@ -6,8 +6,9 @@ import passport from 'passport';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 
-const app = express();
-
+const app = express();;
+const upload = require("./upload");
+const cors = require("cors");
 const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 
@@ -85,5 +86,20 @@ app.post('/api/articles/:name/add-comment', (req, res) => {
 
 require('./routes/IORoutes')(io);
 
-server.listen(PORT, () => { console.log('==> 🌎  Listening on port %s.', PORT)});
+server.listen(PORT, () => { console.log('==> 🌎  Listening on port %s.', PORT) });
 
+
+//upload
+
+var corsOptions = {
+    origin: "*",
+    optionsSuccessStatus: 200
+};
+
+server.use(cors(corsOptions));
+
+server.post("/upload", upload);
+
+server.listen(8000, () => {
+    console.log("Server started!");
+});
