@@ -1,10 +1,21 @@
-import 'dotenv/config.js';
+// import 'dotenv/config.js';
 import http from 'http';
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
+
+
+import morgan from 'morgan'
+import dbConnection from './database'
+import user from './routes/user'
+
+import { session as MongoStore } from 'connect-mongo'
+
+
+
+
 
 const app = express();;
 const upload = require("./upload");
@@ -14,7 +25,13 @@ const io = require('socket.io').listen(server);
 
 const PORT = process.env.PORT || 8000;
 
+
+
+
+
 // Middleware
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
@@ -39,6 +56,8 @@ const withDB = async (operations, res) => {
         res.status(500).json({ message: 'Error connecting to db', error });
     }
 }
+
+app.use('/user', user)
 
 app.get('/api/articles/:name', async (req, res) => {
     withDB(async (db) => {
@@ -91,15 +110,15 @@ server.listen(PORT, () => { console.log('==> 🌎  Listening on port %s.', PORT)
 
 //upload
 
-var corsOptions = {
-    origin: "*",
-    optionsSuccessStatus: 200
-};
-
-server.use(cors(corsOptions));
-
-server.post("/upload", upload);
-
-server.listen(8000, () => {
-    console.log("Server started!");
-});
+// var corsOptions = {
+//     origin: "*",
+//     optionsSuccessStatus: 200
+// };
+//
+// server.use(cors(corsOptions));
+//
+// server.post("/upload", upload);
+//
+// server.listen(8000, () => {
+//     console.log("Server started!");
+// });
